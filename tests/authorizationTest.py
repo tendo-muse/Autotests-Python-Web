@@ -1,31 +1,29 @@
-from pages.authorization.entryPage import EntryPage
-from pages.authorization.jobSearchPage import JobSearchPage
-from pages.mainPage import MainPage
+import allure
 
+from steps.authorization.authorizationSteps import AuthorizationSteps
+
+@allure.feature("Authorization")
+@allure.story("Отображение страницы входа")
 def test_displayed_entry_page(browser):
     # Arrange
-    browser.get("https://hh.ru/")
+    authorization_steps = AuthorizationSteps(browser)
+    authorization_steps.open_main_page()
 
     # Act
-    main_page = MainPage(browser)
-    main_page.login_button_click()
-    entry_page = EntryPage(browser)
+    authorization_steps.click_login_button()
 
     # Asserts
-    assert True == entry_page.window_is_displayed
-    assert 'Вход' == entry_page.title_text
+    authorization_steps.verify_entry_page_displayed()
 
+@allure.feature("Authorization")
+@allure.story("Переход на страницу поиска работы")
 def test_transition_job_search_page(browser):
     # Arrange
-    browser.get("https://hh.ru/")
+    authorization_steps = AuthorizationSteps(browser)
+    authorization_steps.open_main_page()
 
     # Act
-    main_page = MainPage(browser)
-    main_page.login_button_click()
-    entry_page = EntryPage(browser)
-    entry_page.entry_button_click()
-    job_search_page = JobSearchPage(browser)
+    authorization_steps.open_job_search_page()
 
     # Asserts
-    assert True == job_search_page.window_is_displayed
-    assert 'Поиск работы' == job_search_page.title_text
+    authorization_steps.verify_job_search_page_displayed()

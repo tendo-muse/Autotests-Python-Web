@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+# Модель главной страницы
 class MainPage:
     def __init__(self, browser):
         self.browser = browser
